@@ -1,26 +1,48 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+
+
+const Image = props => (
+  <div className="uk-card uk-card-body">
+    <div>
+    <h1> {props.image.image_title} </h1>
+    <img src={props.image.image_URL} />
+    <h2> {props.image.image_description}</h2>
+
+    <Link to={"/edit/" + props.image._id}>Edit</Link>
+    </div>
+  </div>
+);
 
 export default class Home extends Component {
   constructor() {
     super();
-    this.state = {
-      message: "Home Page"
-    };
+    this.state = { uploads: [] };
   }
 
+
   componentDidMount() {
-    // axios.get('/api/home')
-    //   .then(response => this.setState({message: response.data}));
+    this._isMounted = true;
+    axios
+      .get("/api/uploads")
+      .then(response => {
+        console.log(response.data);
+        if (this._isMounted) {
+          this.setState({ uploads: response.data });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
+
 
   render() {
     console.log(this.props);
-    return (
-      <div>
-        <h1>Home</h1>
-        <p>{this.state.message}</p>
-      </div>
-    );
+
+    return this.state.uploads.map(function(currentImage, i) {
+      return <Image image={currentImage} key={i} />;
+    });
   }
 }

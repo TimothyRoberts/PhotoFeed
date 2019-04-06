@@ -9,7 +9,7 @@ import Register from "./Register";
 
 import Upload from "./withAuthComponents/Upload";
 import EditImage from "./withAuthComponents/EditImage";
-import PostsList from "./PostsList";
+import PostsList from "./withAuthComponents/PostsList";
 
 class App extends Component {
   constructor() {
@@ -39,13 +39,21 @@ class App extends Component {
     console.log(this.state);
     return (
       <div>
+
+      <nav className="uk-navbar-container uk-navbar" >
+          <div className="uk-navbar-left">
+              <ul className="uk-navbar-nav">
+                  <li className="uk-active"><Link to="/">Home</Link></li>
+                  {this.state.loggedIn && <li><Link to={`/list/${this.state.user._id}`}>My Images</Link></li>}
+                  <li><Link to={`/upload/${this.state.user._id}`}>Upload</Link></li>
+                  {!this.state.loggedIn && <li><Link to="/login">Login</Link></li>}
+                  {!this.state.loggedIn && <li><Link to="/register">Register</Link></li>}
+                  {this.state.loggedIn && <li><Link to="/logout">Logout</Link></li>}
+              </ul>
+          </div>
+      </nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          {this.state.loggedIn && <li><Link to={`/list/${this.state.user._id}`}>My Images</Link></li>}
-          <li><Link to={`/upload/${this.state.user._id}`}>Upload</Link></li>
-          {!this.state.loggedIn && <li><Link to="/login">Login</Link></li>}
-          {!this.state.loggedIn && <li><Link to="/register">Register</Link></li>}
-          {this.state.loggedIn && <li><Link to="/logout">Logout</Link></li>}
+
         </ul>
 
         <Switch>
