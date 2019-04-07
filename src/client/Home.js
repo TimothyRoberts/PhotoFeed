@@ -4,16 +4,26 @@ import axios from "axios";
 
 
 const Image = props => (
-  <div className="uk-card uk-card-body">
-    <div>
-    <h1> {props.image.image_title} </h1>
-    <img src={props.image.image_URL} />
-    <h2> {props.image.image_description}</h2>
-
-    <Link to={"/edit/" + props.image._id}>Edit</Link>
+  <div>
+    <div className="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle">
+      <div className="uk-inline" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 500">
+        <div className="uk-text-center">
+          <div className="uk-inline-clip uk-transition-toggle" tabIndex="0">
+              <img src={props.image.image_URL} />
+              <div className="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
+                <h3> {props.image.image_title} </h3>
+                <p> {props.image.image_description}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div uk-lightbox = "true">
+      <a className="uk-button uk-button-default" href={props.image.image_URL} data-caption="Caption">View Image</a>
     </div>
   </div>
 );
+
 
 export default class Home extends Component {
   constructor() {
@@ -42,7 +52,7 @@ export default class Home extends Component {
     console.log(this.props);
 
     return this.state.uploads.map(function(currentImage, i) {
-      return <Image image={currentImage} key={i} />;
+      return <div> <Image key={i} image={currentImage} /> </div>;
     });
   }
 }
