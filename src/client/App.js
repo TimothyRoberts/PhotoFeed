@@ -9,7 +9,7 @@ import Register from "./Register";
 
 import Upload from "./withAuthComponents/Upload";
 import EditImage from "./withAuthComponents/EditImage";
-import PostsList from "./withAuthComponents/PostsList";
+import UploadsList from "./withAuthComponents/UploadsList";
 
 class App extends Component {
   constructor() {
@@ -36,7 +36,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <nav className="uk-navbar-container uk-navbar" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
@@ -53,7 +52,6 @@ class App extends Component {
         </nav>
 
         <div className="uk-container">
-          <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true" uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; ">
             <Switch>
               // Components available to any user
               <Route path="/" exact component={Home} />
@@ -62,11 +60,10 @@ class App extends Component {
               <Route path="/logout" render={this.logout} />
 
               // Components that require a log in to access
-              <Route path="/list/:id" component={withAuth(PostsList)} />
+              <Route path="/list/:id" component={withAuth(UploadsList)} />
               <Route path="/edit/:id" component={withAuth(EditImage)} />
               <Route path="/upload/:id" component={withAuth(Upload)} />
             </Switch>
-          </div>
         </div>
       </div>
     );

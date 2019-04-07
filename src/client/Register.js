@@ -41,23 +41,30 @@ export default class Register extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <h1>Register Below!</h1>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={this.state.email}
-          onChange={this.handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-          required
-        />
-        <input type="submit" value="Submit"/>
+        <hr />
+        <div className="uk-margin">
+          <input className="uk-input uk-form-width-medium"
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+            required
+          />
+        </div>
+        <div className="uk-margin">
+          <input className="uk-input uk-form-width-medium"
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            required
+          />
+        </div>
+        <div className="uk-margin">
+          <input className="uk-button uk-button-default" type="submit" value="Submit"/>
+        </div>
       </form>
     );
   }
