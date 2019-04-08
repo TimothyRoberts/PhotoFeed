@@ -4,4 +4,11 @@ PhotoFeed is full stack app using MongoDB, Express, React, and Node.js. These te
 
 # Setting up
 
-To set up this application, clone this repository. Then cd into the photofeed directory and run the command 'yarn dev'
+To set up this application, clone this repository. Then, cd into the photofeed directory and run
+```
+npm install
+```
+After it has finished installing, run the command
+```
+yarn dev
+```
