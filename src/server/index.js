@@ -12,6 +12,8 @@ const User = require("./models/User");
 const withAuth = require("./middleware");
 const Upload = require("./models/Upload");
 
+// token authentication
+// string to use when signing the tokens (shouldn't be hardcoded)
 const secret = "secret_should_not_be_in_git";
 
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +42,7 @@ server.get("/", function(req, res) {
 // ------------------------------------
 // AUTHENTICATION REQUESTS
 // ------------------------------------
+
 
 server.post("/api/register", function(req, res) {
   const { email, password } = req.body;
@@ -91,10 +94,12 @@ server.post("/api/authenticate", function(req, res) {
   });
 });
 
+// Checks token for user
 server.get("/api/checkToken", withAuth, function(req, res) {
   res.sendStatus(200);
 });
 
+// Removes user token
 server.get("/api/logout", withAuth, function(req, res) {
   res.cookie("token", "", { httpOnly: true }).sendStatus(200);
 });
@@ -103,17 +108,16 @@ server.get("/api/logout", withAuth, function(req, res) {
 // USER REQUESTS
 // ------------------------------------
 
-// retrieve all user objects from DB
+// retrieve all image uploads from DB
 server.get("/api/uploads", (req, res) => {
   Upload.find({}, (err, result) => {
     if (err) throw err;
 
-    // console.log(result);
     res.send(result);
   });
 });
 
-// retrieve user with specific ID from DB
+// retrieve uploads with from specific user
 server.get("/api/uploads/:id", (req, res) => {
   Upload.find({ userId: req.params.id }, (err, result) => {
     if (err) throw err;
@@ -121,20 +125,9 @@ server.get("/api/uploads/:id", (req, res) => {
     console.log(result);
     res.send(result);
   });
-
-  // User.findOne({_id: req.params.id}, function(err, data) {
-  //   if (err) throw err;
-  //
-  //   Upload.find({userId: userId._id}, function(err, modules) {
-  //     if (err) throw err;
-  //
-  //     res.send(modules);
-  //   });
-  // });
-
 });
 
-// delete user with specific ID from DB
+// Deletes user with specific id
 server.delete("/api/uploads/:id", (req, res) => {
   Upload.deleteOne({ _id: new ObjectID(req.params.id) }, err => {
     if (err) return res.send(err);
@@ -142,7 +135,7 @@ server.delete("/api/uploads/:id", (req, res) => {
   });
 });
 
-// create new user based on info supplied in request body
+// Creates new image
 server.post("/api/uploads", (req, res) => {
   const image = new Upload(req.body);
   console.log(image);
@@ -155,14 +148,13 @@ server.post("/api/uploads", (req, res) => {
   });
 });
 
-// update user based on info supplied in request body
+// Updates user with info in request body
 server.put("/api/uploads", (req, res) => {
-  // get the ID of the user to be updated
+  // get the id of the image to be updated
   const id = req.body._id;
-  // console.log(req.body);
-  // remove the ID so as not to overwrite it when updating
+  // remove the id to avoid overwriting it when updating
   delete req.body._id;
-  // find a user matching this ID and update their details
+  // find an image matching this id and update their details
   Upload.updateOne(
     { _id: new ObjectID(id) },
     { $set: req.body },

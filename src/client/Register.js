@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,7 @@ export default class Register extends Component {
     });
   }
 
+  // Creates new user in db
   onSubmit(event) {
     event.preventDefault();
     axios.post('/api/register', this.state)

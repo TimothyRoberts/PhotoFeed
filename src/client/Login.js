@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,7 @@ export default class Login extends Component {
     });
   }
 
+  // checks for input details in db
   onSubmit(event) {
     event.preventDefault();
     axios.post('/api/authenticate', this.state)

@@ -74,22 +74,20 @@ export default class EditImage extends Component {
   render() {
     return (
       <div>
-        <h3>Create New Image</h3>
+        <h3>Edit/Delete Image</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Title: </label>
-            <input
+            <input className="uk-input uk-form-width-medium"
               type="text"
-              className="form-control"
               value={this.state.image_title}
               onChange={this.onChangeTitle}
             />
           </div>
           <div className="form-group">
             <label>Description: </label>
-            <input
+            <input className="uk-input uk-form-width-medium"
               type="text"
-              className="form-control"
               value={this.state.image_description}
               onChange={this.onChangeDescription}
             />
@@ -97,16 +95,14 @@ export default class EditImage extends Component {
 
           <br />
           <div className="form-group">
-            <input
+            <input className="uk-input uk-form-width-medium"
               type="submit"
               value="Update Image"
-              className="btn btn-primary"
             />
 
-            <input
+            <input className="uk-input uk-form-width-medium"
               type="submit"
               value="Delete Image"
-              className="btn btn-primary"
               onClick={this.onDelete}
             />
           </div>

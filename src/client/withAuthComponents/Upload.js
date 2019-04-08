@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 
 export default class Upload extends Component {
@@ -40,12 +41,7 @@ export default class Upload extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    console.log("Form submitted:");
-    console.log(`Image Title: ${this.state.image_title}`);
-    console.log(`Image Description: ${this.state.image_description}`);
-    console.log(`Image URL: ${this.state.image_URL}`);
-    console.log(`User ID: ${this.props.match.params.id}`);
-
+    // Saves image details and user id
     const newImage = {
       image_title: this.state.image_title,
       image_description: this.state.image_description,
@@ -55,7 +51,7 @@ export default class Upload extends Component {
 
     axios.post("/api/uploads", newImage).then(res => {
       console.log(res.data);
-      this.props.history.push("/list");
+      this.props.history.push(`/list/${newImage.userId}`);
     });
 
     this.setState({
@@ -63,47 +59,45 @@ export default class Upload extends Component {
       image_description: "",
       image_URL: ""
     });
+
+
   }
 
   render() {
     // console.log(this.props);
     return (
       <div style={{ marginTop: 20 }}>
-        <h3>Create New Image</h3>
+        <h3>New Image</h3>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Title: </label>
-            <input
+          <div className="form-group uk-margin">
+            <input className="uk-input uk-form-width-medium"
               type="text"
-              className="form-control"
+              placeholder="Title"
               value={this.state.image_title}
               onChange={this.onChangeTitle}
             />
           </div>
-          <div className="form-group">
-            <label>Description: </label>
-            <input
+          <div className="form-group uk-margin">
+            <input className="uk-input uk-form-width-medium"
               type="text"
-              className="form-control"
+              placeholder="Description"
               value={this.state.image_description}
               onChange={this.onChangeDescription}
             />
           </div>
-          <div className="form-group">
-            <label>Image URL: </label>
-            <input
+          <div className="form-group uk-margin">
+            <input className="uk-input uk-form-width-medium"
               type="text"
-              className="form-control"
+              placeholder="Image URL"
               value={this.state.image_URL}
               onChange={this.onChangeImageURL}
             />
           </div>
 
-          <div className="form-group">
-            <input
+          <div className="form-group uk-margin">
+            <input className="uk-button uk-button-default"
               type="submit"
               value="Upload Image"
-              className="btn btn-primary"
             />
           </div>
         </form>

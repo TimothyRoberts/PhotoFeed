@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
+// higher-order Component
+// wraps react router routes which we want protected
+// takes in a component and returns a component
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
     constructor() {

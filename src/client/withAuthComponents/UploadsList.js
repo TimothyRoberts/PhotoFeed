@@ -2,16 +2,36 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+
 const Image = props => (
-    <img src={props.image.image_URL} />
+  <div>
+    <div className="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle">
+      <div className="uk-inline" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 50">
+        <div className="uk-text-center">
+          <div className="uk-inline-clip uk-transition-toggle" tabIndex="0" uk-lightbox = "true">
+            <a href={props.image.image_URL} data-caption={props.image.image_description}>
+              <img src={props.image.image_URL} />
+            </a>
+              <div className="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
+                <h3> {props.image.image_title} </h3>
+                <p> {props.image.image_description}</p>
+              </div>
+          </div>
+          <Link to={`/edit/${props.image._id}`}>Edit</Link>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
-export default class uploadsList extends Component {
+
+
+export default class UploadsList extends Component {
   constructor(props) {
     super(props);
     this.state = { uploads: [] };
 
-    // used to ensure setState will not be called on this component if it is unmounted
+    // If unmounted, cannot setState
     this._isMounted = false;
 
     this.imageList = this.imageList.bind(this);
@@ -19,9 +39,11 @@ export default class uploadsList extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+    console.log(this.props.match.params.id);
     axios
       .get(`/api/uploads/${this.props.match.params.id}`)
       .then(response => {
+        console.log(response.data);
         if (this._isMounted) {
           this.setState({ uploads: response.data });
         }
@@ -36,30 +58,19 @@ export default class uploadsList extends Component {
     this._isMounted = false;
   }
 
-  imageList() {
-    const userUploads = this.state.uploads.map(function(currentImage) {
-      return <Image image={currentImage} />;
-    });
-  }
-
   render() {
     // for each upload object, produce an Upload component
     const uploadList = this.state.uploads.map((currentImage, i) => (
-      <li key={i}><Image
+      <Image
         key={i}
         image={currentImage}
-      /></li>
+      />
     ));
 
     return (
-      <div>
-        <div className="uk-position-relative uk-visible-toggle" tabIndex="-1" uk-slideshow="max-height: 80; min-height: 60">
-          <ul className="uk-slideshow-items" uk-height-viewport="offset-top: true; offset-bottom: 05">{uploadList}</ul>
-          <a className="uk-position-center-left uk-position-small uk-hidden-hover uk-dark" href="#" uk-slidenav-previous="true" uk-slideshow-item="previous"></a>
-          <a className="uk-position-center-right uk-position-small uk-hidden-hover uk-dark" href="#" uk-slidenav-next="true" uk-slideshow-item="next"></a>
-          <ul className="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
-        </div>
+      <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true" uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; ">
+        {uploadList}
       </div>
-      );
+    );
   }
 }

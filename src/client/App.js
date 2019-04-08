@@ -6,10 +6,12 @@ import withAuth from "./withAuth";
 import Home from "./Home";
 import Login from "./Login";
 import Register from "./Register";
+import UserList from "./UserList";
 
 import Upload from "./withAuthComponents/Upload";
 import EditImage from "./withAuthComponents/EditImage";
 import UploadsList from "./withAuthComponents/UploadsList";
+
 
 class App extends Component {
   constructor() {
@@ -19,6 +21,7 @@ class App extends Component {
     this.login = this.login.bind(this);
   }
 
+  // Saves user object to state on successful login
   login(user) {
     this.setState({loggedIn: true, user: user});
   }
@@ -29,7 +32,7 @@ class App extends Component {
       .get("api/logout")
       .then(res => {
         this.setState({ loggedIn: false });
-        props.history.push("/login");
+        props.history.push("/");
       })
       .catch(err => console.log(err));
     return null;
@@ -58,6 +61,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/login" render={(props) => <Login {...props} handleLogin={this.login} />} />
               <Route path="/logout" render={this.logout} />
+              <Route path="/userList/:id" component={UserList} />
 
               // Components that require a log in to access
               <Route path="/list/:id" component={withAuth(UploadsList)} />

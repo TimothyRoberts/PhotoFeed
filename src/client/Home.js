@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 
-
+// Assigns response data from db to image cards
 const Image = props => (
   <div>
     <div className="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle">
-      <div className="uk-inline" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 500">
+      <div className="uk-inline" uk-scrollspy="target: > div; cls:uk-animation-fade; delay: 50">
         <div className="uk-text-center">
           <div className="uk-inline-clip uk-transition-toggle" tabIndex="0" uk-lightbox = "true">
             <a href={props.image.image_URL} data-caption={props.image.image_description}>
@@ -17,6 +17,7 @@ const Image = props => (
                 <p> {props.image.image_description}</p>
               </div>
           </div>
+          <Link to={`/userList/${props.image.userId}`}>User {props.image.userId}</Link>
         </div>
       </div>
     </div>
@@ -46,7 +47,7 @@ export default class Home extends Component {
   }
 
   render() {
-    // for each upload object, produce an Upload component
+    // for each upload object, produce an Image component
     const uploadList = this.state.uploads.map((currentImage, i) => (
       <Image
         key={i}
