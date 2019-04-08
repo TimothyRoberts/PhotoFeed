@@ -34,6 +34,7 @@ mongoose.connect(
   }
 );
 
+// change made
 server.use(express.static("dist"));
 
 // server.use(express.static(path.join(__dirname, "public")));
