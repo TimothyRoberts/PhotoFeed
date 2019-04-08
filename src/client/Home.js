@@ -56,7 +56,7 @@ export default class Home extends Component {
     ));
 
     return (
-      <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true">
+      <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true" uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; ">
         {uploadList}
       </div>
     );
