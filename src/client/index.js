@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './css/uikit.min.css';
-import './uikit.min.js';
 import App from './App';
 
 ReactDOM.render(

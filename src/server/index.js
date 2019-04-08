@@ -34,17 +34,19 @@ mongoose.connect(
   }
 );
 
-server.use(express.static(path.join(__dirname, "public")));
+server.use(express.static("dist"));
 
-server.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// server.use(express.static(path.join(__dirname, "public")));
+
+// server.get("/", function(req, res) {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // ------------------------------------
 // AUTHENTICATION REQUESTS
 // ------------------------------------
 
-
+// creates new user in db
 server.post("/api/register", function(req, res) {
   const { email, password } = req.body;
   const user = new User({ email, password });
@@ -118,7 +120,7 @@ server.get("/api/uploads", (req, res) => {
   });
 });
 
-// retrieve uploads with from specific user
+// retrieve uploads from specific user
 server.get("/api/uploads/:id", (req, res) => {
   Upload.find({ userId: req.params.id }, (err, result) => {
     if (err) throw err;
@@ -128,7 +130,7 @@ server.get("/api/uploads/:id", (req, res) => {
   });
 });
 
-// Deletes user with specific id
+// Deletes image with specific id
 server.delete("/api/uploads/:id", (req, res) => {
   Upload.deleteOne({ _id: new ObjectID(req.params.id) }, err => {
     if (err) return res.send(err);
@@ -149,7 +151,7 @@ server.post("/api/uploads", (req, res) => {
   });
 });
 
-// Updates user with info in request body
+// Updates image with info in request body
 server.put("/api/uploads", (req, res) => {
   // get the id of the image to be updated
   const id = req.body._id;
