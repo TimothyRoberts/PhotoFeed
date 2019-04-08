@@ -20,6 +20,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 
+server.use(express.static("dist"));
 
 const mongo_uri = "mongodb+srv://timothyroberts:fWBoqsxCA4kRac04@photofeed-toelu.azure.mongodb.net/test?retryWrites=true";
 mongoose.connect(
@@ -34,8 +35,6 @@ mongoose.connect(
   }
 );
 
-// change in path made 
-server.use(express.static("dist"));
 
 // server.use(express.static(path.join(__dirname, "public")));
 
