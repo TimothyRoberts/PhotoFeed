@@ -20,7 +20,8 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 
-const mongo_uri = "mongodb://localhost/react-auth";
+
+const mongo_uri = "mongodb+srv://timothyroberts:fWBoqsxCA4kRac04@photofeed-toelu.azure.mongodb.net/test?retryWrites=true";
 mongoose.connect(
   mongo_uri,
   { useNewUrlParser: true },

@@ -34,7 +34,6 @@ export default class UploadsList extends Component {
     // If unmounted, cannot setState
     this._isMounted = false;
 
-    this.imageList = this.imageList.bind(this);
   }
 
   componentDidMount() {
@@ -68,8 +67,12 @@ export default class UploadsList extends Component {
     ));
 
     return (
-      <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true" uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; ">
-        {uploadList}
+      <div className="uk-margin-top">
+        <h2 className="uk-text-center">View and Edit your Images</h2>
+        <hr />
+        <div className="uk-padding uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true" uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 100; ">
+          {uploadList}
+        </div>
       </div>
     );
   }

@@ -13,7 +13,7 @@ const Image = props => (
               <img src={props.image.image_URL} />
             </a>
               <div className="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
-                <h3> {props.image.image_title} </h3>
+                <h4> {props.image.image_title} </h4>
                 <p> {props.image.image_description}</p>
               </div>
           </div>
