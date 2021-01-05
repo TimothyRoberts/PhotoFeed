@@ -14,7 +14,7 @@
   "author": "Andrew Errity",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^3.0.5",
     "cookie-parser": "^1.4.4",
